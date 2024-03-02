@@ -2,6 +2,7 @@
 
 import argparse
 
+from fnmatch import fnmatch
 from pathlib import Path
 
 
@@ -29,22 +30,41 @@ def combine_files(input_dir1, input_dir2, output_dir, meta_file=None, threshold=
         with open(file1, 'r') as f1, open(file2, 'r') as f2, open(output_file, 'w') as out_file:
             tags1 = [x.strip() for x in f1.read().split(',')]
             tags2 = [x.strip() for x in f2.read().split(',')]
-            
-            tags_combined = combine_tags(tags1, tags2, output_file, meta_tags, threshold)
-            
-            out_file.write(tags_combined)
+
+            tags_combined = combine_tags(
+                tags1, tags2, meta_tags, threshold)
+
+            out_file.write(', '.join(tags_combined))
 
 
 def combine_tags(tags1, tags2, meta_tags, threshold):
+    tags_combined = []
 
-    if len(tags1 - set(meta_tags)) >= threshold and threshold != -1:
-        combined_tags = set(tags1) - set(meta_tags)
-    else:
-        combined_tags = set(tags1) | set(tags2) - set(meta_tags)
+    for tag in tags1:
 
-    combined_tags = ', '.join(combined_tags)
+        to_add = True
 
-    return combined_tags
+        for meta_tag in meta_tags:
+            if fnmatch(tag, meta_tag):
+                to_add = False
+
+        if to_add:
+            tags_combined.append(tag)
+
+    for tag in tags2:
+        if len(tags_combined) > threshold:
+            break
+
+        to_add = True
+
+        for meta_tag in meta_tags:
+            if fnmatch(tag, meta_tag):
+                to_add = False
+
+        if to_add:
+            tags_combined.append(tag)
+
+    return tags_combined
 
 
 if __name__ == '__main__':
