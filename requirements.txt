@@ -1,0 +1,3 @@
+git+https://github.com/deepghs/waifuc.git@main#egg=waifuc[gpu]
+lion_pytorch
+lycoris_lora
