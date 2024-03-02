@@ -37,7 +37,7 @@ def crawl(tags: list[str], save_path, limit, key, username, align_images):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Grab pics from danbooru.')
-    parser.add_argument('-s', '--search', nargs='+', default=[],
+    parser.add_argument('-s', '--search', nargs='+', default=[], required=True,
                         help="Search on danbooru. Use underscores. See https://danbooru.donmai.us/wiki_pages/help:cheatsheet")
     parser.add_argument(
         '-o', '--output-dir', help='Path to save the pictures to.', nargs='?', default="")
