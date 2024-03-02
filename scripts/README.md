@@ -1,5 +1,7 @@
 # Scripts
 
+Most of these scripts are standalone and don't require kohya scripts to be installed.
+
 ## combine_captions.py
 
 This script merges two folders with text files with comma-separated tags which have the same file name and outputs it somewhere. You can also specify a threshold, to only add from second directory if there's not enough tags. You can also provide a **LINE** separated meta tags, as in example `metatags.txt`.

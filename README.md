@@ -4,9 +4,11 @@ These are my personal kohya scripts wrapper for lora training and some other scr
 
 The goal is to focus on encapsulating most of the training stuff inside a single folder for a single bake while relying on sd-scripts functionality. Kind of like [HCP-Diffusion](https://github.com/IrisRainbowNeko/HCP-Diffusion) but in a way more stupid yet broad manner.
 
+Go to [https://github.com/liesened/scarce-scripts/blob/master/scripts/README.md](scripts/README.md) to see more about the dataset scripts. 
+
 # Installation
 
-To use these scripts, you need to install [sd-scripts](https://github.com/kohya-ss/sd-scripts/?tab=readme-ov-file#windows-installation) first. Install them into `sd-scripts` folder.
+To use the training scripts, will you need to install [sd-scripts](https://github.com/kohya-ss/sd-scripts/?tab=readme-ov-file#windows-installation) first. Install them into `sd-scripts` folder.
 
 ## sd-scripts
 
