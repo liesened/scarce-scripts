@@ -53,7 +53,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if not args.output_dir:
-        args.output_dir = args.s[0]
+        args.output_dir = args.search[0]
 
     args.output_dir = args.output_dir.replace(':', '')
 
