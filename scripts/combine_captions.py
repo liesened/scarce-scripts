@@ -38,7 +38,7 @@ def combine_files(input_dir1, input_dir2, output_dir, meta_file=None, threshold=
 
 
 def combine_tags(tags1, tags2, meta_tags, threshold):
-    tags_combined = []
+    tags_combined = set()
 
     for tag in tags1:
 
@@ -49,11 +49,14 @@ def combine_tags(tags1, tags2, meta_tags, threshold):
                 to_add = False
 
         if to_add:
-            tags_combined.append(tag)
+            tags_combined.add(tag)
 
     for tag in tags2:
         if len(tags_combined) > threshold:
             break
+        
+        if tag in tags_combined:
+            continue
 
         to_add = True
 
@@ -62,7 +65,7 @@ def combine_tags(tags1, tags2, meta_tags, threshold):
                 to_add = False
 
         if to_add:
-            tags_combined.append(tag)
+            tags_combined.add(tag)
 
     return tags_combined
 
