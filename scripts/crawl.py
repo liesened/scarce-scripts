@@ -17,7 +17,6 @@ def crawl(tags: list[str], save_path, limit, key, username, align_images):
     if align_images:
         images = images.attach(
             MinAreaFilterAction(1024),
-            FileExtAction(ext='.png'),
             AlignMaxAreaAction(1024),
         )
 
@@ -26,6 +25,7 @@ def crawl(tags: list[str], save_path, limit, key, username, align_images):
         FilterSimilarAction('all'),  # filter duplicated images
         FirstNSelectAction(limit),
         # RandomFilenameAction(ext='.png'),  # random rename files
+        FileExtAction(ext='.png'),
     )
 
     images.export(
