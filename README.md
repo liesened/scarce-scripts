@@ -126,5 +126,5 @@ Linux: use `ln -s`
 If you don't want to use symlinks, you can always add a kohya parameter to `run.sh`:
 
 ```sh
-./run.sh configs/sparkle/lion --output_dir="E:\webui\models\Lora\sparkle"
+./run.sh configs/sparkle/lion --output_dir "/home/whoever/webui/models/Lora/sparkle"
 ```
