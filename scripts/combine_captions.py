@@ -44,7 +44,7 @@ def combine_tags(tags1, tags2, meta_tags, threshold):
 
     combined_tags = ', '.join(combined_tags)
 
-    return combine_tags
+    return combined_tags
 
 
 if __name__ == '__main__':
