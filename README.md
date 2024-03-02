@@ -2,6 +2,8 @@
 
 These are my personal kohya scripts wrapper for lora training and some other scripts to save myself from kohya and dataset preparation pain, use at your own risk and don't expect >>>Windows<<< support from me.
 
+SD 1.5 is not supported and will never be.
+
 The goal is to focus on encapsulating most of the training stuff inside a single folder for a single bake while relying on sd-scripts functionality. Kind of like [HCP-Diffusion](https://github.com/IrisRainbowNeko/HCP-Diffusion) but in a way more stupid yet broad manner.
 
 Go to [scripts/README.md](scripts/README.md) to see more about the dataset scripts. 
