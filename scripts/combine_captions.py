@@ -26,13 +26,16 @@ def combine_files(input_dir1, input_dir2, output_dir, meta_file=None, threshold=
 
         output_file = output_dir / file1.name
 
-        with open(file1, 'r') as f1, open(file2, 'r') as f2:
+        with open(file1, 'r') as f1, open(file2, 'r') as f2, open(output_file, 'w') as out_file:
             tags1 = [x.strip() for x in f1.read().split(',')]
             tags2 = [x.strip() for x in f2.read().split(',')]
-            combine_tags(tags1, tags2, output_file, meta_tags, threshold)
+            
+            tags_combined = combine_tags(tags1, tags2, output_file, meta_tags, threshold)
+            
+            out_file.write(tags_combined)
 
 
-def combine_tags(tags1, tags2, output_file, meta_tags, threshold):
+def combine_tags(tags1, tags2, meta_tags, threshold):
 
     if len(tags1 - set(meta_tags)) >= threshold and threshold != -1:
         combined_tags = set(tags1) - set(meta_tags)
@@ -41,8 +44,7 @@ def combine_tags(tags1, tags2, output_file, meta_tags, threshold):
 
     combined_tags = ', '.join(combined_tags)
 
-    with open(output_file, 'w') as out_file:
-        out_file.write(combined_tags)
+    return combine_tags
 
 
 if __name__ == '__main__':
