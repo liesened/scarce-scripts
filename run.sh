@@ -2,6 +2,11 @@
 
 source sd-scripts/venv/bin/activate
 
+function usage {
+    echo "$0 starts kohya trainer and tensorboard."
+    echo "usage: $0 [config folder] <additional kohya options>"
+}
+
 CONFIG=$1
 LOGDIR=$CONFIG/logs
 
