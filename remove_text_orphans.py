@@ -13,19 +13,14 @@ img_suffixes = [
 ]
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="Remove text files without corresponding images.")
-
-    parser.add_argument(
-        "directory", help="The directory to scan for text files and corresponding images.")
-
-    args = parser.parse_args()
+def main(args):
 
     directory = pathlib.Path(args.directory)
 
     for file in directory.glob('*.txt'):
+
         to_be_removed = True
+
         for suffix in img_suffixes:
             image_file = file.with_suffix(suffix)
 
@@ -39,6 +34,14 @@ def main():
                 f"Deleted text file '{file.name}' because corresponding image file does not exist.")
 
 
-# Call the main function
 if __name__ == "__main__":
-    main()
+    
+    parser = argparse.ArgumentParser(
+        description="Remove text files without corresponding images.")
+
+    parser.add_argument(
+        "directory", help="The directory to scan for text files and corresponding images.")
+
+    args = parser.parse_args()
+
+    main(args)
