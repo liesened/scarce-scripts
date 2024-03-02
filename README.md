@@ -1,6 +1,6 @@
 # scarce scripts
 
-These are my personal kohya scripts wrapper for lora training and some other scripts to save myself from kohya and dataset preparation pain, use at your own risk and don't expect >>>Windows<<< support.
+These are my personal kohya scripts wrapper for lora training and some other scripts to save myself from kohya and dataset preparation pain, use at your own risk and don't expect >>>Windows<<< support from me.
 
 The goal is to focus on encapsulating most of the training stuff inside a single folder for a single bake while relying on sd-scripts functionality. Kind of like [HCP-Diffusion](https://github.com/IrisRainbowNeko/HCP-Diffusion) but in a way more stupid yet broad manner.
 
