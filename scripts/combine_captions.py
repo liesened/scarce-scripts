@@ -73,7 +73,7 @@ def combine_tags(tags1, tags2, meta_tags, threshold):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Combine files with comma-separated tags')
-    parser.add_argument('-c', '--tag-threshold', type=int, nargs='?', default=-1,
+    parser.add_argument('-t', '--tag-threshold', type=int, nargs='?', default=-1,
                         help="Don't add tags from dir2 if there's this much tags in dir1.")
     parser.add_argument(
         '-m', '--meta_file', help='Path to the file with tags to be removed', nargs='?')
@@ -84,4 +84,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     combine_files(args.input_dir1, args.input_dir2,
-                  args.output_dir, args.meta_file, args.c)
+                  args.output_dir, args.meta_file, args.tag_threshold)
