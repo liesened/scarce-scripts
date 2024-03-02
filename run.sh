@@ -20,5 +20,5 @@ shift
     --config_file="$CONFIG/config.toml" \
     --dataset_config="$CONFIG/dataset.toml" \
     --log_with tensorboard --logging_dir="$LOGDIR" $@ \
-    & tensorboard --logdir="$LOGDIR" --host 192.168.0.2 & wait
+    & tensorboard --logdir="$LOGDIR" --host 0.0.0.0 & wait
 )
