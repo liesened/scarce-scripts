@@ -6,7 +6,7 @@ SD 1.5 is not supported and will never be.
 
 The goal is to focus on encapsulating most of the training stuff inside a single folder for a single bake while relying on sd-scripts functionality. Kind of like [HCP-Diffusion](https://github.com/IrisRainbowNeko/HCP-Diffusion) but in a way more stupid yet broad manner.
 
-Go to [scripts/README.md](scripts/README.md) to see more about the dataset scripts. 
+Go to [scripts/README.md](scripts/README.md) to see more about the dataset scripts.
 
 # Installation
 
@@ -125,7 +125,11 @@ Windows, **CMD**:
 mklink /J configs\sparkle\outputs  E:\webui\models\Lora\sparkle
 ```
 
-Linux: use `ln -s`
+Linux:
+
+```sh
+ln -s /home/whoever/webui/models/Lora/sparkle configs/sparkle/outputs
+```
 
 If you don't want to use symlinks, you can always add a kohya parameter to `run.sh`:
 
