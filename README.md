@@ -22,9 +22,10 @@ cd sd-scripts
 python -m venv venv
 ```
 
-Depending on the platform, install pytorch and bitsandbytes. On Windows, do
+Depending on the platform, activate the venv, install pytorch and bitsandbytes. On Windows, do
 
 ```bat
+.\venv\Scripts\activate
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 pip install --upgrade -r requirements.txt
 pip install -U xformers --index-url https://download.pytorch.org/whl/cu121
@@ -34,6 +35,7 @@ python -m pip install bitsandbytes==0.41.1 --prefer-binary --extra-index-url=htt
 On Linux, do
 
 ```sh
+. venv/bin/activate
 pip install torch torchvision
 pip install --upgrade -r requirements.txt
 pip install xformers bitsandbytes
