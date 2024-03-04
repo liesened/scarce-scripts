@@ -2,20 +2,40 @@ import argparse
 import sys
 import unittest
 
+from pathlib import Path
 
-def add(args):
+
+def run_processor(args):
+    directory = Path(args.directory)
+
+    tag_processor = args.processor
+
+    for caption_path in directory.glob('*.txt'):
+        with open(caption_path, "rw") as f:
+            caption = f.readline()
+            new_caption = tag_processor(args, caption)
+            f.seek(0)
+            f.write(new_caption)
+            f.truncate()
+
+
+def run_tests(args):
+    unittest.main(verbosity=2)
+
+
+def add_processor(args, caption: str) -> str:
     print("Not implemented.")
-    print(args)
+    print(args, caption)
 
 
-def delete(args):
+def delete_processor(args, caption: str) -> str:
     print("Not implemented.")
-    print(args)
+    print(args, caption)
 
 
-def edit(args):
+def edit_processor(args, caption: str) -> str:
     print("Not implemented.")
-    print(args)
+    print(args, caption)
 
 
 class TestBatchEditing(unittest.TestCase):
@@ -52,7 +72,7 @@ def main():
 
     parser_add.add_argument('tags', default=[], nargs='+')
 
-    parser_add.set_defaults(func=add)
+    parser_add.set_defaults(processor=add_processor)
     add_directory(parser_add)
 
     # Delete
@@ -62,7 +82,7 @@ def main():
 
     parser_delete.add_argument('tags', default=[], nargs='+')
 
-    parser_delete.set_defaults(func=delete)
+    parser_delete.set_defaults(processor=delete_processor)
     add_directory(parser_delete)
 
     # Edit
@@ -78,15 +98,17 @@ def main():
     parser_edit.add_argument('--old', nargs='+')
     parser_edit.add_argument('--new', nargs='+')
 
-    parser_edit.set_defaults(func=edit)
+    parser_edit.set_defaults(processor=edit_processor)
     add_directory(parser_edit)
 
     # Tests
     subparsers.add_parser("test", help="Run tests").set_defaults(
-        func=lambda x: unittest.main(verbosity=2))
+        runner=run_tests)
+    parser.set_defaults(runner=run_processor)
 
     args = parser.parse_args()
-    args.func(args)
+
+    args.runner(args)
 
 
 if __name__ == '__main__':
