@@ -1,5 +1,6 @@
 import argparse
 import sys
+import unittest
 
 
 def add(args):
@@ -17,7 +18,16 @@ def edit(args):
     print(args)
 
 
-if __name__ == '__main__':
+class TestBatchEditing(unittest.TestCase):
+
+    def test_add(self):
+        ...
+
+
+test = TestBatchEditing
+
+
+def main():
     parser = argparse.ArgumentParser(prog=sys.argv[0])
 
     subparsers = parser.add_subparsers(title='actions',
@@ -39,9 +49,9 @@ if __name__ == '__main__':
                             help="Insert a new tag after this tag")
     parser_add.add_argument('--before', type=str,
                             help="Insert a new tag before this tag")
-    
+
     parser_add.add_argument('tags', default=[], nargs='+')
-    
+
     parser_add.set_defaults(func=add)
     add_directory(parser_add)
 
@@ -49,9 +59,9 @@ if __name__ == '__main__':
     parser_delete = subparsers.add_parser(
         'del',
         help='Remove a tag from every caption if it exists')
-    
+
     parser_delete.add_argument('tags', default=[], nargs='+')
-    
+
     parser_delete.set_defaults(func=delete)
     add_directory(parser_delete)
 
@@ -71,5 +81,12 @@ if __name__ == '__main__':
     parser_edit.set_defaults(func=edit)
     add_directory(parser_edit)
 
+    # Tests
+    subparsers.add_parser("test", help="Run tests").set_defaults(
+        func=lambda x: unittest.main(verbosity=2))
+
     args = parser.parse_args()
     args.func(args)
+
+if __name__ == '__main__':
+    main()
