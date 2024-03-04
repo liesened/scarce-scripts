@@ -24,7 +24,7 @@ if __name__ == '__main__':
                                        help='Batch add, edit, or delete tags', required=True)
 
     def add_directory(parser):
-        parser.add_argument('directory', type=str,
+        parser.add_argument('-d', '--directory', type=str, required=True,
                             help='The dataset directory to work on')
 
     # Add
