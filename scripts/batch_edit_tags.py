@@ -39,7 +39,9 @@ if __name__ == '__main__':
                             help="Insert a new tag after this tag")
     parser_add.add_argument('--before', type=str,
                             help="Insert a new tag before this tag")
+    
     parser_add.add_argument('tags', default=[], nargs='+')
+    
     parser_add.set_defaults(func=add)
     add_directory(parser_add)
 
@@ -47,7 +49,9 @@ if __name__ == '__main__':
     parser_delete = subparsers.add_parser(
         'del',
         help='Remove a tag from every caption if it exists')
+    
     parser_delete.add_argument('tags', default=[], nargs='+')
+    
     parser_delete.set_defaults(func=delete)
     add_directory(parser_delete)
 
@@ -65,7 +69,6 @@ if __name__ == '__main__':
     parser_edit.add_argument('--new', nargs='+')
 
     parser_edit.set_defaults(func=edit)
-
     add_directory(parser_edit)
 
     args = parser.parse_args()
