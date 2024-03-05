@@ -3,6 +3,7 @@ import sys
 import unittest
 
 from pathlib import Path
+from dataclasses import dataclass
 
 
 def run_processor(args):
@@ -23,9 +24,46 @@ def run_tests(args):
     unittest.main(verbosity=2)
 
 
+def caption_to_tags(caption: str, delimeter = ',') -> list[str]:
+    return [tag.strip() for tag in caption.split(delimeter)]
+
+def tags_to_caption(tags: list[str], delimeter = ',', use_underscore = False):
+    if use_underscore:
+        tags = [tag.replace(' ', '_') for tag in tags]
+    
+    return (delimeter + ' ').join(tags)
+
+
 def add_processor(args, caption: str) -> str:
-    print("Not implemented.")
-    print(args, caption)
+    tags = caption_to_tags(caption)
+    
+    to_add = args.tags
+    
+    if isinstance(to_add, str):
+        to_add = [to_add]
+    
+    if args.prepend:
+        for tag in to_add[::-1]:
+            tags.insert(0, tag)
+    
+    if args.append:
+        for tag in to_add:
+            tags.append(tag)
+    
+    if args.after:
+        pos = tags.index(args.after)
+        if pos != -1:
+            for tag in to_add[::-1]:
+                tags.insert(pos+1, tag)
+                
+    if args.before:
+        pos = tags.index(args.before)
+        if pos != -1:
+            for tag in to_add[::-1]:
+                tags.insert(pos, tag)
+    
+            
+    return tags_to_caption(tags)
 
 
 def delete_processor(args, caption: str) -> str:
@@ -41,9 +79,40 @@ def edit_processor(args, caption: str) -> str:
 class TestBatchEditing(unittest.TestCase):
 
     def test_add(self):
-        ...
-
-
+        args = dataclass()
+        
+        caption = "a, b, c, d, e, f"
+        args.tags = ["123", '789']
+        args.prepend = True
+        args.append = True
+        args.before = 'e'
+        args.after = 'd'
+        expected_caption =  "123, 789, a, b, c, d, 123, 789, 123, 789, e, f, 123, 789"
+        result_caption = add_processor(args, caption)
+        
+        self.assertEqual(result_caption, expected_caption)
+        
+        # No prepend
+        args.prepend = False
+        expected_caption = "a, b, c, d, 123, 789, 123, 789, e, f, 123, 789"
+        result_caption = add_processor(args, caption)
+        
+        self.assertEqual(result_caption, expected_caption)
+        
+        # No append
+        args.append = False
+        expected_caption = "a, b, c, d, 123, 789, 123, 789, e, f"
+        result_caption = add_processor(args, caption)
+        
+        self.assertEqual(result_caption, expected_caption)
+        
+        # No after
+        args.append = False
+        expected_caption = "a, b, c, d, 123, 789, 123, 789, e, f"
+        result_caption = add_processor(args, caption)
+        
+        self.assertEqual(result_caption, expected_caption)
+        
 test = TestBatchEditing
 
 
