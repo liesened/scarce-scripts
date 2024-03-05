@@ -62,7 +62,6 @@ def add_processor(args, caption: str) -> str:
             for tag in to_add[::-1]:
                 tags.insert(pos, tag)
     
-            
     return tags_to_caption(tags)
 
 
