@@ -12,9 +12,10 @@ def run_processor(args):
     tag_processor = args.processor
 
     for caption_path in directory.glob('*.txt'):
-        with open(caption_path, "w+") as f:
+        with open(caption_path, "r") as f:
             caption = f.readline()
-            new_caption = tag_processor(args, caption)
+        new_caption = tag_processor(args, caption)
+        with open(caption_path, "w") as f:
             f.seek(0)
             f.write(new_caption)
             f.truncate()
@@ -109,6 +110,20 @@ class TestBatchEditing(unittest.TestCase):
         # No after
         args.append = False
         expected_caption = "a, b, c, d, 123, 789, 123, 789, e, f"
+        result_caption = add_processor(args, caption)
+
+        self.assertEqual(result_caption, expected_caption)
+
+    def test_add2(self):
+        args = dataclass()
+
+        caption = "1boy, 2girls, ahoge, armor, bad id, bad pixiv id, belt, blue eyes, blue hair, blush, breastplate, brown hair, cape, censored, clothed sex, cooperative fellatio, fellatio, ffm threesome, fighter \(granblue fantasy\), fingernails, from above, from side, gran \(granblue fantasy\), granblue fantasy, group sex, half-closed eyes, handjob, hetero, indoors, katalina \(granblue fantasy\), licking, licking penis, long fingernails, long hair, looking at another, looking at viewer, looking up, lyria \(granblue fantasy\), mosaic censoring, multiple girls, oral, pauldrons, penis, pillow, profile, red eyes, saliva, shoulder armor, standing, teamwork, threesome, tkhs, tongue, tongue out, turtleneck"
+        args.tags = '123'
+        args.prepend = True
+        args.append = None
+        args.before = None
+        args.after = None
+        expected_caption = "123, 1boy, 2girls, ahoge, armor, bad id, bad pixiv id, belt, blue eyes, blue hair, blush, breastplate, brown hair, cape, censored, clothed sex, cooperative fellatio, fellatio, ffm threesome, fighter \(granblue fantasy\), fingernails, from above, from side, gran \(granblue fantasy\), granblue fantasy, group sex, half-closed eyes, handjob, hetero, indoors, katalina \(granblue fantasy\), licking, licking penis, long fingernails, long hair, looking at another, looking at viewer, looking up, lyria \(granblue fantasy\), mosaic censoring, multiple girls, oral, pauldrons, penis, pillow, profile, red eyes, saliva, shoulder armor, standing, teamwork, threesome, tkhs, tongue, tongue out, turtleneck"
         result_caption = add_processor(args, caption)
 
         self.assertEqual(result_caption, expected_caption)
