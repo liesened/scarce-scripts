@@ -12,7 +12,7 @@ def run_processor(args):
     tag_processor = args.processor
 
     for caption_path in directory.glob('*.txt'):
-        with open(caption_path, "rw") as f:
+        with open(caption_path, "w+") as f:
             caption = f.readline()
             new_caption = tag_processor(args, caption)
             f.seek(0)
